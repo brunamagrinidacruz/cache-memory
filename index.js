@@ -1,3 +1,5 @@
+const LIXO = "$"
+
 const MAPEAMENTO_DIRETO = "direto"
 const MAPEAMENTO_TOTALMENTE_ASSOCIATIVO = "associativo"
 const MAPEAMENTO_ASSOCIATIVO_POR_CONJUNTO = "conjunto"
@@ -10,9 +12,9 @@ let memoriaCache = []
 function inicializarMemoriaCache() {
     for(let i = 0; i < QUANTIDADE_LINHAS_NA_CACHE; i++) {
         memoriaCache.push({
-            v: 0,
-            tag: "x",
-            conteudoMemoria: "x"
+            validade: 0,
+            tag: LIXO,
+            conteudoMemoria: LIXO
         })
     }
 }
@@ -69,7 +71,7 @@ function criarMemoriaCache(callback) {
             td2.style.border = borderStyle;
             td3.style.border = borderStyle;
 
-            let text1 = document.createTextNode(memoriaCache[indexMemoriaCache].v);
+            let text1 = document.createTextNode(memoriaCache[indexMemoriaCache].validade);
             let text2 = document.createTextNode(memoriaCache[indexMemoriaCache].tag);
             let text3 = document.createTextNode(memoriaCache[indexMemoriaCache].conteudoMemoria);
         
@@ -81,6 +83,8 @@ function criarMemoriaCache(callback) {
             tr.appendChild(td3);
         
             tbody.appendChild(tr);
+
+            indexMemoriaCache++;
         }
         
         simulador.appendChild(tbody);
@@ -98,12 +102,20 @@ buscarEndereco.addEventListener("click", () => {
     let endereco = document.getElementById("endereco").value
     let conteudoMemoria = document.getElementById(endereco).innerHTML;
 
+    let estaNaCache = false;
     switch(funcaoDeMapeamento) {
         case MAPEAMENTO_DIRETO:
             console.log("Mapeamento direto")
             break;
         case MAPEAMENTO_TOTALMENTE_ASSOCIATIVO:
-            console.log("Mapeamento totalmente associativo")
+            for(let i = 0; i < QUANTIDADE_LINHAS_NA_CACHE; i++) {
+                if(memoriaCache[i].conteudoMemoria == LIXO) {
+                    memoriaCache[i].validade = 1;
+                    memoriaCache[i].conteudoMemoria = conteudoMemoria;
+                    estaNaCache = true;
+                    break;
+                }
+            }
             break;
         case MAPEAMENTO_ASSOCIATIVO_POR_CONJUNTO:
             console.log("Mapeamento associativo por conjunto")
