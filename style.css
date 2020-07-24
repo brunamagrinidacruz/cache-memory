@@ -29,6 +29,11 @@ article > header {
     margin-bottom: 1em;
 }
 
+#cabecalho {
+    padding: 2em 0em 2em 2em;
+    display: inline-block;
+}
+
 #principal {
     width: 100%;
     max-width: 45em;
