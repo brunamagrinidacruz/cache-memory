@@ -8,6 +8,9 @@ const QUANTIDADE_LINHAS_NA_CACHE = 8
 
 const cores = ["DarkGrey", "DarkBlue", "ForestGreen", "LightPink", "LightSalmon"]
 
+let quantidade_byteoffset = 1; /*!< Quantidade de bits que são necessários para representar o byteoffset da palavra */
+let quantidade_wordoffset = 1; /*!< Quantidade de bits que são necessários para representar o wordoffset da palavra */
+
 let memoriaCache = []
 function inicializarMemoriaCache() {
     for(let i = 0; i < QUANTIDADE_LINHAS_NA_CACHE; i++) {
@@ -99,33 +102,57 @@ document.getElementById("funcaoDeMapeamento").onchange = function () {
 
 let buscarEndereco = document.getElementById("buscarEndereco")
 buscarEndereco.addEventListener("click", () => {
-    let endereco = document.getElementById("endereco").value
-    let conteudoMemoria = document.getElementById(endereco).innerHTML;
+    const enderecoCompleto = document.getElementById("endereco").value; /*!< Endereço digitado pelo usuário */
 
-    let estaNaCache = false;
+    const mensagem = document.getElementById("mensagem"); /*!< Campo para resposta visual de erros e falhas */
+
+    let conteudoMemoria;
+    try { /*!< Verifica se o endereço digitado é válido */
+        conteudoMemoria = document.getElementById(enderecoCompleto).innerHTML;
+    } catch {
+        mensagem.innerHTML = "Endereço inválido."
+        return;
+    }
+
+    /**
+     * Para tamanho da palavra 2 bytes -> 1 bit para representar byteoffset
+     * Para tamanho de bloco na linha da cache de 2 palavras -> 1 bit para representar wordoffset
+     * Para tamanho 
+     * 110110101
+     *      tag      |     |     0      |     1
+     *               | set | wordoffset | byteoffset
+     *         
+     */
+    
+    const byteoffset = enderecoCompleto.substring(enderecoCompleto.length - quantidade_byteoffset, enderecoCompleto.length)
+    const wordoffset = enderecoCompleto.substring(enderecoCompleto.length - (quantidade_byteoffset + quantidade_wordoffset), enderecoCompleto.length - quantidade_byteoffset)
+    // const tag = enderecoCompleto.substring()
+    
     switch(funcaoDeMapeamento) {
         case MAPEAMENTO_DIRETO:
-            console.log("Mapeamento direto")
             break;
         case MAPEAMENTO_TOTALMENTE_ASSOCIATIVO:
             for(let i = 0; i < QUANTIDADE_LINHAS_NA_CACHE; i++) {
                 if(memoriaCache[i].conteudoMemoria == LIXO) {
                     memoriaCache[i].validade = 1;
                     memoriaCache[i].conteudoMemoria = conteudoMemoria;
-                    estaNaCache = true;
                     break;
                 }
             }
             break;
         case MAPEAMENTO_ASSOCIATIVO_POR_CONJUNTO:
-            console.log("Mapeamento associativo por conjunto")
             break;
     }
 
+    /*!< Criando memória cache com base no vetor memoriaCache atualizado */
     criarMemoriaCache();
 
-    let processador = document.getElementById("processador");
+    /*!< Colocando conteúdo do endereço no processador */
+    const processador = document.getElementById("processador");
     processador.innerHTML = conteudoMemoria;
+
+    /*!< Limpando mensagem de erros e falhas */
+    mensagem.innerHTML = "";
 })
 
 
