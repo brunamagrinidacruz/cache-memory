@@ -25,14 +25,16 @@
 
     <select id="funcaoDeMapeamento">
         <option value="direto">Mapeamento direto</option>
-        <option value="associativo">Mapeamento totalmente associativo</option>
+        <option value="associativo">Mapeamento totalmente associativo (com LRU)</option>
         <option value="conjunto">Mapeamento associativo por conjunto</option>
     </select>
 
     <br/><br/>
 
-    <input type="text" placeholder="Endereço da memória" id="endereco"></input>
-    <button id="buscarEndereco">Buscar endereço</button>
+    <form>
+        <input type="text" placeholder="Endereço da memória" id="endereco"></input>
+        <button id="buscarEndereco">Buscar endereço</button>
+    </form>
     <p id="mensagem"></p>
     
     <br/><br/>
@@ -47,7 +49,9 @@
             <table id="simulador">
                 <thead>
                     <tr>
-                        <td>V</td>  
+                        <td>Validade</td>  
+                        <td>Contador</td>
+                        <td>Conjunto</td>
                         <td>Tag</td>
                         <td>Conteúdo da memória</td>
                     </tr>
@@ -85,6 +89,10 @@
         </div>
     </div>
         
+    <script src="constantes.js"></script> 
+    <script src="util.js"></script> 
+    <script src="cache.js"></script> 
+    <script src="funcoes_de_mapeamento.js"></script> 
     <script src="index.js"></script> 
 </body>
 </html>
