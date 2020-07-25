@@ -1,15 +1,25 @@
 /*!< Função responsável por inicializar uma memória cache vazia */
-function inicializarMemoriaCache() {
+function inicializarMemoriaCache(funcaoDeMapeamento, quantidade_de_conjuntos, quantidade_linhas_por_conjuntos) {
     let memoriaCache = []
+
+    let conjunto;
+    let contadorConjunto = 0;
     for(let i = 0; i < QUANTIDADE_LINHAS_NA_CACHE; i++) {
+
+        if(i % quantidade_linhas_por_conjuntos == 0) {
+            conjunto = adicionarZeros(Math.round(Math.log2(quantidade_de_conjuntos)), contadorConjunto.toString(2))
+            contadorConjunto++;
+        }
+        
         memoriaCache.push({
             validade: 0,
-            contador: 0,
-            conjunto: LIXO,
+            contador: funcaoDeMapeamento == MAPEAMENTO_DIRETO ? "-" : 0,
+            conjunto: funcaoDeMapeamento == MAPEAMENTO_TOTALMENTE_ASSOCIATIVO ? "-" : conjunto,
             tag: LIXO,
             conteudoMemoria: LIXO
         })
     }
+
     return memoriaCache;
 }
 

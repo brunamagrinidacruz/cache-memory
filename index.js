@@ -23,7 +23,7 @@ function selecionarMapeamento() {
             quantidade_linhas_por_conjuntos = QUANTIDADE_LINHAS_POR_CONJUNTO;
             break;
     }
-    memoriaCache = inicializarMemoriaCache();
+    memoriaCache = inicializarMemoriaCache(funcaoDeMapeamento, quantidade_de_conjuntos, quantidade_linhas_por_conjuntos);
 }
 
 criarMemoriaCache(selecionarMapeamento);
@@ -65,7 +65,7 @@ buscarEndereco.addEventListener("click", (e) => {
             let inicio = enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET + QUANTIDADE_SET);
             let fim = enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET);
             const conjunto = enderecoCompleto.substring(inicio, fim);
-            memoriaCache = mapeamento_direto(memoriaCache, enderecoCompleto);
+            memoriaCache = mapeamento_direto(memoriaCache, enderecoCompleto, wordoffset);
             break;
         case MAPEAMENTO_TOTALMENTE_ASSOCIATIVO:
             memoriaCache = totalmente_associativo(memoriaCache, enderecoCompleto, byteoffset, wordoffset);
