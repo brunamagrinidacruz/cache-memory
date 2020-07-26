@@ -57,15 +57,8 @@ function totalmente_associativo(memoriaCache, enderecoCompleto, wordoffset) {
 }
 
 function mapeamento_direto(memoriaCache, enderecoCompleto, quantidade_set, wordoffset) {
-    // indice = log2(nLinhas) linhas na cache
-    // endereco = log2(nBytes) quantidade de bytes por linha na cache
-
     const indice = enderecoCompleto.substring(enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET + quantidade_set), enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET));
     const tag = enderecoCompleto.substring(0, enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET + quantidade_set));
-
-    // const bitIndice = Math.round(Math.log2(QUANTIDADE_LINHAS_NA_CACHE));
-
-    // const tag = enderecoCompleto.substring(0, (bitIndice-1)); // [0 ... 3]
 
     /*!< Verificando se já existe a tag na memória */
     for(let i = 0; i < QUANTIDADE_LINHAS_NA_CACHE; i++) {
@@ -73,9 +66,6 @@ function mapeamento_direto(memoriaCache, enderecoCompleto, quantidade_set, wordo
             return memoriaCache;
         }
     }
-
-    // const indice = enderecoCompleto.substring((bitIndice-1), (enderecoCompleto.length - QUANTIDADE_BYTEOFFSET));
-    // const endereco = enderecoCompleto.substring((enderecoCompleto.length - QUANTIDADE_BYTEOFFSET), enderecoCompleto.length);
 
     /*!< Percorrendo a memória em busca da posição livre */
     let i = 0;

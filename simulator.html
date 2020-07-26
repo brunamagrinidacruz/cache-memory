@@ -4,7 +4,11 @@
     <meta charset="UTF-8">
     <title>Cache Memory</title>
 </head>
-<style>
+<style>    
+    body {
+        margin: 20px;
+    }
+
     tr, td{
         border: 1px solid black;
     }
@@ -13,86 +17,99 @@
         max-height: 350px;
         overflow: scroll;
     }
+
+    .componente {
+        margin: 0 5px 0 5px;
+        border: 1px solid black;
+        padding: 5px 5px 5px 5px;
+    }
 </style>
 <body>
-    Número de linhas na memória: 16 linhas <br/>
-    Tamanho do endereço: 32 bits <br/>
-    Tamanho da palavra: 2 bytes <br/>
-    Número de linhas da cache: 8 <br/>
-    Cada linha da cache armazena 2 palavras <br/>
+    <div class="main">
+        <form>
+            Número de linhas na memória: 16 linhas <br/>
+            Cada linha da cache armazena 1 palavra <br/>
+            Tamanho da palavra: 
+            <select id="tamanhoPalavra">
+                <option value="2">2 bytes</option>
+                <option value="4">4 bytes</option>
+            </select>
+            <br/> 
+            <button id="salvarConfiguracoes">Salvar configurações</button> <br/>
+        </form>
 
-    <br/>
+        <br/>
+        <label>Selecione o tipo de mapeamento</label>
+        <select id="funcaoDeMapeamento">
+            <option value="direto">Mapeamento direto</option>
+            <option value="associativo">Mapeamento totalmente associativo (com LRU)</option>
+            <option value="conjunto">Mapeamento associativo por conjunto (com LRU)</option>
+        </select>
 
-    <select id="funcaoDeMapeamento">
-        <option value="direto">Mapeamento direto</option>
-        <option value="associativo">Mapeamento totalmente associativo (com LRU)</option>
-        <option value="conjunto">Mapeamento associativo por conjunto</option>
-    </select>
+        <br/><br/>
 
-    <br/><br/>
+        <form>
+            <input type="text" placeholder="Endereço da memória" id="endereco"></input>
+            <button id="buscarEndereco">Buscar endereço</button>
+        </form>
+        <p id="mensagem"></p>
+        <br/>
 
-    <form>
-        <input type="text" placeholder="Endereço da memória" id="endereco"></input>
-        <button id="buscarEndereco">Buscar endereço</button>
-    </form>
-    <p id="mensagem"></p>
-    
-    <br/><br/>
+        <div id="computador" style="display: flex">
+            <div class="componente">
+                <p> CPU </p>
+                <p id="processador">xxxx</p>
+            </div>
+            
+            <div class="componente">
+                <table id="simulador">
+                    <thead>
+                        <tr>
+                            <td>Validade</td>  
+                            <td>Contador</td>
+                            <td>Conjunto</td>
+                            <td>Tag</td>
+                            <td>Conteúdo da memória</td>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
 
-    <div id="computador" style="display: flex">
-        <div>
-            <p> Processador </p>
-            <p id="processador">xxxx</p>
+            <div class="tabela componente">
+                <table>
+                    <thead>
+                        <tr>
+                            <td>Endereço</td>
+                            <td>Conteúdo</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr> <td>0000</td> <td id="0000">1</td> </tr>
+                        <tr> <td>0001</td> <td id="0001">2</td> </tr>
+                        <tr> <td>0010</td> <td id="0010">3</td> </tr>
+                        <tr> <td>0011</td> <td id="0011">4</td> </tr>
+                        <tr> <td>0100</td> <td id="0100">5</td> </tr>
+                        <tr> <td>0101</td> <td id="0101">6</td> </tr>
+                        <tr> <td>0110</td> <td id="0110">7</td> </tr>
+                        <tr> <td>0111</td> <td id="0111">8</td> </tr>
+                        <tr> <td>1000</td> <td id="1000">9</td> </tr>
+                        <tr> <td>1001</td> <td id="1001">10</td> </tr>
+                        <tr> <td>1010</td> <td id="1010">11</td> </tr>
+                        <tr> <td>1011</td> <td id="1011">12</td> </tr>
+                        <tr> <td>1100</td> <td id="1100">13</td> </tr>
+                        <tr> <td>1101</td> <td id="1101">14</td> </tr>
+                        <tr> <td>1110</td> <td id="1110">15</td> </tr>
+                        <tr> <td>1111</td> <td id="1111">16</td> </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        
-        <div class="tabela">
-            <table id="simulador">
-                <thead>
-                    <tr>
-                        <td>Validade</td>  
-                        <td>Contador</td>
-                        <td>Conjunto</td>
-                        <td>Tag</td>
-                        <td>Conteúdo da memória</td>
-                    </tr>
-                </thead>
-            </table>
-        </div>
-
-        <div class="tabela">
-            <table>
-                <thead>
-                    <tr>
-                        <td>Endereço</td>
-                        <td>Conteúdo</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr> <td>0000</td> <td id="0000">1</td> </tr>
-                    <tr> <td>0001</td> <td id="0001">2</td> </tr>
-                    <tr> <td>0010</td> <td id="0010">3</td> </tr>
-                    <tr> <td>0011</td> <td id="0011">4</td> </tr>
-                    <tr> <td>0100</td> <td id="0100">5</td> </tr>
-                    <tr> <td>0101</td> <td id="0101">6</td> </tr>
-                    <tr> <td>0110</td> <td id="0110">7</td> </tr>
-                    <tr> <td>0111</td> <td id="0111">8</td> </tr>
-                    <tr> <td>1000</td> <td id="1000">9</td> </tr>
-                    <tr> <td>1001</td> <td id="1001">10</td> </tr>
-                    <tr> <td>1010</td> <td id="1010">11</td> </tr>
-                    <tr> <td>1011</td> <td id="1011">12</td> </tr>
-                    <tr> <td>1100</td> <td id="1100">13</td> </tr>
-                    <tr> <td>1101</td> <td id="1101">14</td> </tr>
-                    <tr> <td>1110</td> <td id="1110">15</td> </tr>
-                    <tr> <td>1111</td> <td id="1111">16</td> </tr>
-                </tbody>
-            </table>
-        </div>
+            
+        <script src="constantes.js"></script> 
+        <script src="util.js"></script> 
+        <script src="cache.js"></script> 
+        <script src="funcoes_de_mapeamento.js"></script> 
+        <script src="index.js"></script> 
     </div>
-        
-    <script src="constantes.js"></script> 
-    <script src="util.js"></script> 
-    <script src="cache.js"></script> 
-    <script src="funcoes_de_mapeamento.js"></script> 
-    <script src="index.js"></script> 
 </body>
 </html>

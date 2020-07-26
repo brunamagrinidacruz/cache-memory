@@ -1,7 +1,7 @@
 /*!< Constantes de configuração das memórias  */
 const QUANTIDADE_LINHAS_NA_CACHE = 4;
 
-const TAMANHO_PALAVRA = 2; /*!< Em bytes, o tamanho da palavra */
+const TAMANHO_PALAVRA = parseInt(document.getElementById("tamanhoPalavra").value); /*!< Em bytes, o tamanho da palavra */
 const QUANTIDADE_PALAVRAS_LINHA_CACHE = 1; /*!< Representa a quantidade de palavras que uma linha da cache consegue armazenar */
 
 /**
