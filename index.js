@@ -57,7 +57,7 @@ buscarEndereco.addEventListener("click", (e) => {
      *         
      */
     
-    const byteoffset = enderecoCompleto.substring(enderecoCompleto.length - QUANTIDADE_BYTEOFFSET, enderecoCompleto.length);
+    // const byteoffset = enderecoCompleto.substring(enderecoCompleto.length - QUANTIDADE_BYTEOFFSET, enderecoCompleto.length);
     const wordoffset = enderecoCompleto.substring(enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET), enderecoCompleto.length - QUANTIDADE_BYTEOFFSET);
 
     switch(funcaoDeMapeamento) {
@@ -65,13 +65,13 @@ buscarEndereco.addEventListener("click", (e) => {
             let inicio = enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET + QUANTIDADE_SET);
             let fim = enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET);
             const conjunto = enderecoCompleto.substring(inicio, fim);
-            memoriaCache = mapeamento_direto(memoriaCache, enderecoCompleto, wordoffset);
+            memoriaCache = mapeamento_direto(memoriaCache, enderecoCompleto, Math.round(Math.log2(quantidade_de_conjuntos)), wordoffset);
             break;
         case MAPEAMENTO_TOTALMENTE_ASSOCIATIVO:
-            memoriaCache = totalmente_associativo(memoriaCache, enderecoCompleto, byteoffset, wordoffset);
+            memoriaCache = totalmente_associativo(memoriaCache, enderecoCompleto, wordoffset);
             break;
         case MAPEAMENTO_ASSOCIATIVO_POR_CONJUNTO:    
-            memoriaCache = associativo_conjunto(memoriaCache, enderecoCompleto, byteoffset, wordoffset)        
+            memoriaCache = associativo_conjunto(memoriaCache, enderecoCompleto, wordoffset)        
             break;
     }
 
