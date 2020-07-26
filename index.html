@@ -9,7 +9,7 @@
     <div id="principal">
         <header>
             <div id="cabecalho">
-                <h1>Memória Cache</h1>
+                <h1>Memória Cache: definição e funções de mapeamento</h1>
             </div>
         </header>
         <div id="corpo">
@@ -44,14 +44,15 @@
 						<h2> Hierarquia de memória </h2>
 						<p>Ok, entendido isso, vamos para hierarquia de memória, e nada melhor do que uma 
 						imagem para entendê-la melhor:</p>
-                        <p>
-                            <img src="">
+                        <p class="centralizado">
+                            <img src="images/hierarquia_memoria.jpg" height="400" width="500">
                         </p>
+						<br/>
 						<ul>
 							<li> Algumas definições: </li>
 						</ul>
-						<p> 
-							<img src="">
+						<p class="centralizado"> 
+							<img src="images/cache.jpg" height="400" width="500">
 						</p>
 						<p>Nessa imagem podemos ver que a memória cache é o nível da hierarquia de memória entre 
 						o processador e a memória principal.
@@ -77,13 +78,13 @@
 						é se basear no endereço da palavra na memória. Essa estrutura de cache é chamada 
 						Mapeamento Direto, pois cada local da memória é mapeado diretamente para exatamente 
 						um local no cache. Isso é expresso pela equação:</p>
-						<p class = "equacao"> i = j módulo m </p>
+						<p class = "centralizado"> i = j módulo m </p>
 						<p>onde i é o número do bloco da memória cache, j é o número do bloco da memória principal 
 						e m é o número de blocos na memória cache.</p>
 						<p>Utilizamos tags (que contém a parte superior do endereço) para saber se o bloco 
 						que queremos é aquele mesmo que está na cache.</p>
-						<p>
-							<img src="">
+						<p class="centralizado">
+							<img src="images/tag_index.jpg" height="400" width="500">
 						</p>
 						<p>Os endereços são divididos em campos, sendo eles:</p>
 						<p> 
@@ -94,8 +95,8 @@
 							- <b>Index</b>: resultado da operação do módulo;<br/><br/>
 							- <b>Tag</b>: restante do endereço.<br/><br/>
 						</p>
-						<p>
-							<img src="">
+						<p class="centralizado">
+							<img src="images/cache2.jpg" height="400" width="500">
 						</p>
 						<p>Também precisamos reconhecer se um bloco de cache possui uma informação válida.</p>
 						<p>Por exemplo, quando um processador é iniciado, o cache não possui bons dados e os 
@@ -114,8 +115,8 @@
 						temos mais o campo de index. A tag é a encarregada por identificar um bloco da memória 
 						de maneira única. Para isso, utiliza uma lógica de controle que compara de forma 
 						simultânea a tag do endereço do bloco acessado com a tag de todos os blocos da cache.</p>
-						<p>
-							<img src="">
+						<p class="centralizado">
+							<img src="images/associativa_combinacao.jpg" height="400" width="500">
 						</p>
 						<p>Como a imagem nos mostra, há uma complexidade do conjunto de circuitos necessários 
 						para a comparação das tags em paralelo.</p>
@@ -124,15 +125,15 @@
 						<p>Então temos essa terceira função de mapeamento que tenta diminuir as desvantagens dos outros. 
 						Ela tenta unir o mapeamento direto com o totalmente associativo.</p>
 						<p> Ela divide a memória cache em V conjuntos ou sets de K blocos cada. </p>
-						<p>
-							<img src="">
+						<p class="centralizado">
+							<img src="images/associativa_combinacao2.jpg" height="400" width="500">
 						</p>
 						<p>Na memória cache, o endereço é constituído dos campos: tag, conjunto, byte offset e palavra.</p>
 						<p>Utilizando uma função de mapeamento direto, saberemos a qual conjunto aquele endereço deve pertencer.</p>
 						<p>Dentro do conjunto, temos um mapeamento totalmente associativo, ou seja, podemos colocar em qualquer bloco/linha daquele conjunto.</p>
 						<p>Fazendo essa combinação, temos uma tag bem menor e ela é comparada apenas com as k tags que pertencem ao mesmo conjunto.</p>
-						<p>
-							<img src="">
+						<p class="centralizado">
+							<img src="images/associativa_total.jpg" height="400" width="500">
 						</p>
 						
 						<h2>Bits de controle</h2>
@@ -174,7 +175,11 @@
             </div>
         </div>
         <footer>
-
+			<span>© BIM</br>
+				Bruna Magrini da Cruz<br/>
+				Isadora Carolina Siebert<br/>
+				Marlon José Martins<br/>
+			</span>
         </footer>
     </div>
 </body>
