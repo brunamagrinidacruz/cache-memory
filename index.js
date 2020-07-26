@@ -31,7 +31,13 @@ document.getElementById("funcaoDeMapeamento").onchange = function () {
     criarMemoriaCache(selecionarMapeamento);
 }
 
-let buscarEndereco = document.getElementById("buscarEndereco")
+const salvarConfiguracoes = document.getElementById("salvarConfiguracoes");
+salvarConfiguracoes.addEventListener("click", (e) => {
+    e.preventDefault()
+    window.location.reload();
+})
+
+const buscarEndereco = document.getElementById("buscarEndereco")
 buscarEndereco.addEventListener("click", (e) => {
     e.preventDefault();
     
@@ -47,24 +53,11 @@ buscarEndereco.addEventListener("click", (e) => {
         return;
     }
 
-    /**
-     * Para tamanho da palavra 2 bytes -> 1 bit para representar byteoffset
-     * Para tamanho de bloco na linha da cache de 2 palavras -> 1 bit para representar wordoffset
-     * Para tamanho 
-     * 110110101
-     *      tag      |     |     0      |     1
-     *               | set | wordoffset | byteoffset
-     *         
-     */
-    
     // const byteoffset = enderecoCompleto.substring(enderecoCompleto.length - QUANTIDADE_BYTEOFFSET, enderecoCompleto.length);
     const wordoffset = enderecoCompleto.substring(enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET), enderecoCompleto.length - QUANTIDADE_BYTEOFFSET);
 
     switch(funcaoDeMapeamento) {
         case MAPEAMENTO_DIRETO:
-            let inicio = enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET + QUANTIDADE_SET);
-            let fim = enderecoCompleto.length - (QUANTIDADE_BYTEOFFSET + QUANTIDADE_WORDOFFSET);
-            const conjunto = enderecoCompleto.substring(inicio, fim);
             memoriaCache = mapeamento_direto(memoriaCache, enderecoCompleto, Math.round(Math.log2(quantidade_de_conjuntos)), wordoffset);
             break;
         case MAPEAMENTO_TOTALMENTE_ASSOCIATIVO:
